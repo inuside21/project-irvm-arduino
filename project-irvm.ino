@@ -44,9 +44,9 @@ int btnOpen = 18;
 int btnCode = 19;
 
 // Pin Output - Servo
-int servoPin1 = 14;
-int servoPin2 = 12;
-int servoPin3 = 13;
+int servoPin1 = 14;                   // Metal
+int servoPin2 = 12;                   // Plastic
+int servoPin3 = 13;                   // Candy
 
 // Others
 int Vmetalsensor = 0;
