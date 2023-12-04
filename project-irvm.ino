@@ -136,8 +136,8 @@ void loop()
   VCode = digitalRead(btnCode);
 
   // Loadcell
-  //loadcellReading1 = scale1.get_units();
-  //loadcellReading2 = scale2.get_units();
+  Serial.println("Loadcell 1 (Metal): " + String(scale1.get_units()) + " grams");
+  Serial.println("Loadcell 2 (Plastic): " + String(scale2.get_units()) + " grams");
 
   // Wifi
   if (wifiConnected == 0)
