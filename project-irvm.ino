@@ -191,6 +191,7 @@ void loop()
 
       //
       RequestSetPointsOff();
+      displayMode = 0;
     }
 
     // Plastic
@@ -221,6 +222,7 @@ void loop()
 
       //
       RequestSetPointsOff();
+      displayMode = 0;
     }
 
     // Candy
