@@ -302,7 +302,11 @@ void loop()
       RequestSetPointsOn();
       RequestGetCodeStatus();
       accumulatedPoints = 0;
-      displayMode = 8;
+
+      if (dCode != "" && dCode.length() == 8)
+      {
+        displayMode = 8;
+      }
     }
   }
   
@@ -352,6 +356,11 @@ void ConnectWifi()
 // Get Code Status
 void RequestGetCodeStatus()
 {
+  if (wifiConnected == 0)
+  {
+    return;
+  }
+  
   HTTPClient http;
   String serverPath = serverName + "api.php?mode=devcodestatus";
   http.begin(serverPath.c_str());
@@ -371,6 +380,11 @@ void RequestGetCodeStatus()
 // Get Reward Status
 void RequestGetRewardStatus()
 {
+  if (wifiConnected == 0)
+  {
+    return;
+  }
+  
   HTTPClient http;
   String serverPath = serverName + "api.php?mode=devrewardstatus";
   http.begin(serverPath.c_str());
@@ -390,6 +404,11 @@ void RequestGetRewardStatus()
 // Get Reward Status
 void RequestSetCode()
 {
+  if (wifiConnected == 0)
+  {
+    return;
+  }
+  
   HTTPClient http;
   String serverPath = serverName + "api.php?mode=devcodeset&cpoints=" + String(accumulatedPoints);
   http.begin(serverPath.c_str());
@@ -408,6 +427,11 @@ void RequestSetCode()
 // Set In-use by Reward
 void RequestSetRewardOn() 
 {
+  if (wifiConnected == 0)
+  {
+    return;
+  }
+  
   HTTPClient http;
   String serverPath = serverName + "api.php?mode=devinuserewardset";
   http.begin(serverPath.c_str());
@@ -426,6 +450,11 @@ void RequestSetRewardOn()
 // Set In-use by Points
 void RequestSetPointsOn() 
 {
+  if (wifiConnected == 0)
+  {
+    return;
+  }
+  
   HTTPClient http;
   String serverPath = serverName + "api.php?mode=devinusepointsset";
   http.begin(serverPath.c_str());
@@ -444,6 +473,11 @@ void RequestSetPointsOn()
 // Set In-use by Reward Off
 void RequestSetRewardOff() 
 {
+  if (wifiConnected == 0)
+  {
+    return;
+  }
+  
   HTTPClient http;
   String serverPath = serverName + "api.php?mode=devinuserewardoffset";
   http.begin(serverPath.c_str());
@@ -462,6 +496,11 @@ void RequestSetRewardOff()
 // Set In-use by Points Off
 void RequestSetPointsOff() 
 {
+  if (wifiConnected == 0)
+  {
+    return;
+  }
+  
   HTTPClient http;
   String serverPath = serverName + "api.php?mode=devinusepointsoffset";
   http.begin(serverPath.c_str());
