@@ -153,7 +153,7 @@ void loop()
     // 3 - candy
     // 8 - code
     
-    // idle
+    // Idle
     if (displayMode == 0)
     {
       //
@@ -163,7 +163,7 @@ void loop()
       lcd.print("Points:      " + ConvertNumberSpace(String(accumulatedPoints)));
     }
 
-    // metal
+    // Metal
     if (displayMode == 1)
     {
       //
@@ -193,7 +193,7 @@ void loop()
       RequestSetPointsOff();
     }
 
-    // plastic
+    // Plastic
     if (displayMode == 2)
     {
       //
@@ -229,6 +229,11 @@ void loop()
       //
       while(dReward.toInt() > 0)
       {
+        if (dReward.toInt() < 2)
+        {
+          break;  
+        }
+        
         //
         RequestSetRewardOn();
         
@@ -239,7 +244,7 @@ void loop()
         lcd.print("Points:      " + ConvertNumberSpace(dReward));
 
         // 
-        int x = dReward.toInt() - 1;
+        int x = dReward.toInt() - 2;
         dReward = String(x);
 
         //
