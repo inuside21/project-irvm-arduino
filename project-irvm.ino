@@ -299,6 +299,7 @@ void loop()
       RequestSetCode();
       RequestSetPointsOn();
       RequestGetCodeStatus();
+      accumulatedPoints = 0;
       displayMode = 8;
     }
   }
