@@ -50,7 +50,6 @@ int VCandy = 0;
 int VOpen = 0;                        // basurahan 
 int VCode = 0;
 
-int accumulatedPoints = 0;
 int displayMode = 0;                  // 0 - idle
                                       // 1 - metal
                                       // 2 - plastic
@@ -261,9 +260,6 @@ void loop()
     if (!VCandy && displayMode == 0)
     {
       RequestGetRewardStatus();
-      int x = accumulatedPoints + dReward.toInt();
-      dReward = String(x);
-      accumulatedPoints = 0;
       displayMode = 3;
     }
 
@@ -279,7 +275,7 @@ void loop()
       RequestSetCode();
       RequestSetPointsOn();
       RequestGetCodeStatus();
-      accumulatedPoints = 0;
+      dReward = "0";
 
       if (dCode != "" && dCode.length() == 8)
       {
