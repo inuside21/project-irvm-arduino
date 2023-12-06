@@ -29,24 +29,22 @@ float loadcellReading1 = 0;           // Metal
 float loadcellReading2 = 0;           // Plastic
 
 // Pin Input - Loadcell
-int loadcellDout1 = 3;                // Metal
-int loadcellSck1 = 2;                 // Metal
-int loadcellDout2 = 3;                // Plastic
-int loadcellSck2 = 2;                 // Plastic
+int loadcellDout1 = 18;               // 
+int loadcellSck1 = 5;                 // 
 
 // Pin Input - Sensor
-int metalsensor = 4;
-int objectsensor = 15;
+int metalsensor = 23;
+int objectsensor = 35;
 
 // Pin Input - Button
-int btnCandy = 5;
-int btnOpen = 18;
+int btnCandy = 32;
+int btnOpen = 33;
 int btnCode = 19;
 
 // Pin Output - Servo
-int servoPin1 = 14;                   // Metal
-int servoPin2 = 12;                   // Plastic
-int servoPin3 = 13;                   // Candy
+int servoPin1 = 4;                    // Metal
+int servoPin2 = 2;                    // Plastic
+int servoPin3 = 15;                   // Candy
 
 // Others
 int Vmetalsensor = 0;
@@ -64,13 +62,6 @@ int displayMode = 0;                  // 0 - idle
 
 String dCode = "";                    // server - code
 String dReward = "0";                 // server - reward
-
-
-// Delay
-unsigned long previousMillis = 0;
-const long interval = 1000;
-unsigned long previousMillis2 = 0;
-const long interval2 = 1000;
 
 
 // =====================================
@@ -160,7 +151,7 @@ void loop()
       lcd.setCursor(0, 0);
       lcd.print("   No  Object   ");
       lcd.setCursor(0, 1);
-      lcd.print("Points:      " + ConvertNumberSpace(String(accumulatedPoints)));
+      lcd.print("Points:    " + ConvertNumberSpace(String(accumulatedPoints)));
     }
 
     // Metal
@@ -170,7 +161,7 @@ void loop()
       lcd.setCursor(0, 0);
       lcd.print(" Metal Detected ");
       lcd.setCursor(0, 1);
-      lcd.print("Points:      " + ConvertNumberSpace(String(accumulatedPoints)));
+      lcd.print("Points:    " + ConvertNumberSpace(String(accumulatedPoints)));
 
       //
       RequestSetPointsOn();
@@ -185,7 +176,7 @@ void loop()
 
       //
       loadcellReading1 = scale1.get_units();
-      float result = loadcellReading1 / 100;
+      float result = loadcellReading1;
       int resultRound = result;
       accumulatedPoints = accumulatedPoints + resultRound;
 
@@ -201,7 +192,7 @@ void loop()
       lcd.setCursor(0, 0);
       lcd.print("Plastic Detected");
       lcd.setCursor(0, 1);
-      lcd.print("Points:      " + ConvertNumberSpace(String(accumulatedPoints)));
+      lcd.print("Points:    " + ConvertNumberSpace(String(accumulatedPoints)));
 
       //
       RequestSetPointsOn();
@@ -216,7 +207,7 @@ void loop()
 
       //
       loadcellReading2 = scale2.get_units();
-      float result = loadcellReading2 / 100;
+      float result = loadcellReading2;
       int resultRound = result;
       accumulatedPoints = accumulatedPoints + resultRound;
 
@@ -231,7 +222,7 @@ void loop()
       //
       while(dReward.toInt() > 0)
       {
-        if (dReward.toInt() < 2)
+        if (dReward.toInt() < 200)
         {
           break;  
         }
@@ -243,10 +234,10 @@ void loop()
         lcd.setCursor(0, 0);
         lcd.print("  Reward Claim  ");
         lcd.setCursor(0, 1);
-        lcd.print("Points:      " + ConvertNumberSpace(dReward));
+        lcd.print("Points:    " + ConvertNumberSpace(dReward));
 
         // 
-        int x = dReward.toInt() - 2;
+        int x = dReward.toInt() - 200;
         dReward = String(x);
 
         //
@@ -319,7 +310,7 @@ void loop()
     }
 
     // Plastic
-    if (Vobjectsensor && !Vobjectsensor && !VOpen)
+    if (Vmetalsensor && !Vobjectsensor && !VOpen)
     {
       displayMode = 2;
     }
@@ -517,21 +508,30 @@ void RequestSetPointsOff()
 }
 
 String ConvertNumberSpace(String x) 
-{ // result will be "   "
-
-  if (x.length() == 2)
+{ // result will be "      "
+  if (x.length() == 4)
   {
     x = " " + x;
   }
 
-  if (x.length() == 1)
+  if (x.length() == 3)
   {
     x = "  " + x;
   }
 
+  if (x.length() == 2)
+  {
+    x = "  " + x;
+  }
+
+  if (x.length() == 1)
+  {
+    x = "   " + x;
+  }
+
   if (x.length() <= 0)
   {
-    x = "   ";
+    x = "     ";
   }
 
   return x;
