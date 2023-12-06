@@ -295,13 +295,13 @@ void loop()
   // Sensor
   {
     // Metal
-    if (!Vmetalsensor && !Vobjectsensor && !VOpen)
+    if (!Vmetalsensor && !Vobjectsensor && !VOpen && displayMode == 0)
     {
       displayMode = 1;
     }
 
     // Plastic
-    if (Vmetalsensor && !Vobjectsensor && !VOpen)
+    if (Vmetalsensor && !Vobjectsensor && !VOpen && displayMode == 0)
     {
       displayMode = 2;
     }
