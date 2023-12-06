@@ -1,4 +1,4 @@
-aaaaaaaaaaaaaaaaw// Board:             DOIT ESP32 (Node ESP?)
+// Board:             DOIT ESP32 (Node ESP?)
 // Documentation URL: asdasd
 // WIFI
 #include <WiFi.h>
