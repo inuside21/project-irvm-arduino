@@ -141,7 +141,7 @@ void loop()
       lcd.setCursor(0, 0);
       lcd.print("   No  Object   ");
       lcd.setCursor(0, 1);
-      lcd.print("Points:    " + ConvertNumberSpace(String(dReward)));
+      lcd.print("Points:    " + ConvertNumberSpace(dReward));
     }
 
     // Metal
@@ -154,16 +154,11 @@ void loop()
       lcd.setCursor(0, 0);
       lcd.print(" Metal Detected ");
       lcd.setCursor(0, 1);
-      lcd.print("Points:    " + ConvertNumberSpace(String(accumulatedPoints)));
+      lcd.print("Points:    " + ConvertNumberSpace(dReward));
 
       //
       loadcellReading1 = scale1.get_units();
-      float result = loadcellReading1;
-      int resultRound = result;
-      accumulatedPoints = accumulatedPoints + resultRound;
-      int x = accumulatedPoints + dReward.toInt();
-      dReward = String(x);
-      accumulatedPoints = 0;
+      dReward = String(loadcellReading1);
 
       //
       myservo1.write(180);
@@ -187,16 +182,11 @@ void loop()
       lcd.setCursor(0, 0);
       lcd.print("Plastic Detected");
       lcd.setCursor(0, 1);
-      lcd.print("Points:    " + ConvertNumberSpace(String(accumulatedPoints)));
+      lcd.print("Points:    " + ConvertNumberSpace(dReward));
 
       //
       loadcellReading1 = scale1.get_units();
-      float result = loadcellReading1;
-      int resultRound = result;
-      accumulatedPoints = accumulatedPoints + resultRound;
-      int x = accumulatedPoints + dReward.toInt();
-      dReward = String(x);
-      accumulatedPoints = 0;
+      dReward = String(loadcellReading1);
 
       //
       myservo2.write(180);
@@ -398,7 +388,7 @@ void RequestSetCode()
   }
   
   HTTPClient http;
-  String serverPath = serverName + "api.php?mode=devcodeset&cpoints=" + String(accumulatedPoints);
+  String serverPath = serverName + "api.php?mode=devcodeset&cpoints=" + dReward;
   http.begin(serverPath.c_str());
   int httpResponseCode = http.GET();
 
