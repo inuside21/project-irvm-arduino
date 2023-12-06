@@ -238,6 +238,7 @@ void loop()
       //
       RequestSetRewardOff();
       displayMode = 0;
+      return;
     }
 
     // Code
@@ -253,6 +254,7 @@ void loop()
       delay(10000);
       RequestSetPointsOff();
       displayMode = 0;
+      return;
     }
   }
 
@@ -517,12 +519,12 @@ String ConvertNumberSpace(String x)
 
   if (x.length() == 2)
   {
-    x = "  " + x;
+    x = "   " + x;
   }
 
   if (x.length() == 1)
   {
-    x = "   " + x;
+    x = "    " + x;
   }
 
   if (x.length() <= 0)
