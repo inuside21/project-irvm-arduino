@@ -141,7 +141,7 @@ void loop()
       lcd.setCursor(0, 0);
       lcd.print("   No  Object   ");
       lcd.setCursor(0, 1);
-      lcd.print("Points:    " + ConvertNumberSpace(String(accumulatedPoints)));
+      lcd.print("Points:    " + ConvertNumberSpace(String(dReward)));
     }
 
     // Metal
@@ -161,6 +161,9 @@ void loop()
       float result = loadcellReading1;
       int resultRound = result;
       accumulatedPoints = accumulatedPoints + resultRound;
+      int x = accumulatedPoints + dReward.toInt();
+      dReward = String(x);
+      accumulatedPoints = 0;
 
       //
       myservo1.write(180);
@@ -191,6 +194,9 @@ void loop()
       float result = loadcellReading1;
       int resultRound = result;
       accumulatedPoints = accumulatedPoints + resultRound;
+      int x = accumulatedPoints + dReward.toInt();
+      dReward = String(x);
+      accumulatedPoints = 0;
 
       //
       myservo2.write(180);
@@ -225,7 +231,8 @@ void loop()
         lcd.print("Points:    " + ConvertNumberSpace(dReward));
 
         // 
-        int x = dReward.toInt() - 200;
+        int x = dReward.toInt();
+        x = x - 200;
         dReward = String(x);
 
         //
