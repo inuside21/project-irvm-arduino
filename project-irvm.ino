@@ -1,4 +1,4 @@
-// Board:             DOIT ESP32 (Node ESP?)
+aaaaaaaaaaaaaaaaw// Board:             DOIT ESP32 (Node ESP?)
 // Documentation URL: asdasd
 // WIFI
 #include <WiFi.h>
@@ -22,11 +22,8 @@ Servo myservo3;
 // Load Cell
 #include "HX711.h"
 HX711 scale1;                         // Metal
-HX711 scale2;                         // Plastic
 float loadcellCalibration1 = 975;     // Metal
-float loadcellCalibration2 = 975;     // Plastic
 float loadcellReading1 = 0;           // Metal
-float loadcellReading2 = 0;           // Plastic
 
 // Pin Input - Loadcell
 int loadcellDout1 = 18;               // 
@@ -88,9 +85,6 @@ void setup()
   scale1.begin(loadcellDout1, loadcellSck1);
   scale1.set_scale(loadcellCalibration1);
   scale1.tare();
-  scale2.begin(loadcellDout2, loadcellSck2);
-  scale2.set_scale(loadcellCalibration2);
-  scale2.tare();
 
   // Pin Output
   myservo1.setPeriodHertz(50);
@@ -128,7 +122,6 @@ void loop()
 
   // Loadcell
   Serial.println("Loadcell 1 (Metal): " + String(scale1.get_units()) + " grams");
-  Serial.println("Loadcell 2 (Plastic): " + String(scale2.get_units()) + " grams");
 
   // Wifi
   if (wifiConnected == 0)
@@ -166,7 +159,6 @@ void loop()
       //
       RequestSetPointsOn();
       scale1.tare();
-      scale2.tare();
 
       //
       myservo1.write(180);
@@ -197,7 +189,6 @@ void loop()
       //
       RequestSetPointsOn();
       scale1.tare();
-      scale2.tare();
 
       //
       myservo2.write(180);
@@ -206,8 +197,8 @@ void loop()
       delay(1000);
 
       //
-      loadcellReading2 = scale2.get_units();
-      float result = loadcellReading2;
+      loadcellReading1 = scale1.get_units();
+      float result = loadcellReading1;
       int resultRound = result;
       accumulatedPoints = accumulatedPoints + resultRound;
 
