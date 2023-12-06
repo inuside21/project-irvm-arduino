@@ -157,7 +157,9 @@ void loop()
 
       //
       loadcellReading1 = scale1.get_units();
-      dReward = String(loadcellReading1);
+      int x = dReward.toInt();
+      int y = loadcellReading1 + x;
+      dReward = String(y);
 
       //
       myservo1.write(180);
@@ -185,7 +187,9 @@ void loop()
 
       //
       loadcellReading1 = scale1.get_units();
-      dReward = String(loadcellReading1);
+      int x = dReward.toInt();
+      int y = loadcellReading1 + x;
+      dReward = String(y);
 
       //
       myservo2.write(180);
