@@ -120,9 +120,6 @@ void loop()
   VOpen = digitalRead(btnOpen);
   VCode = digitalRead(btnCode);
 
-  // Loadcell
-  Serial.println("Loadcell 1 (Metal): " + String(scale1.get_units()) + " grams");
-
   // Wifi
   if (wifiConnected == 0)
   {
@@ -151,14 +148,19 @@ void loop()
     if (displayMode == 1)
     {
       //
+      RequestSetPointsOn();
+
+      //
       lcd.setCursor(0, 0);
       lcd.print(" Metal Detected ");
       lcd.setCursor(0, 1);
       lcd.print("Points:    " + ConvertNumberSpace(String(accumulatedPoints)));
 
       //
-      RequestSetPointsOn();
-      scale1.tare();
+      loadcellReading1 = scale1.get_units();
+      float result = loadcellReading1;
+      int resultRound = result;
+      accumulatedPoints = accumulatedPoints + resultRound;
 
       //
       myservo1.write(180);
@@ -167,19 +169,17 @@ void loop()
       delay(1000);
 
       //
-      loadcellReading1 = scale1.get_units();
-      float result = loadcellReading1;
-      int resultRound = result;
-      accumulatedPoints = accumulatedPoints + resultRound;
-
-      //
       RequestSetPointsOff();
       displayMode = 0;
+      return;
     }
 
     // Plastic
     if (displayMode == 2)
     {
+      //
+      RequestSetPointsOn();
+
       //
       lcd.setCursor(0, 0);
       lcd.print("Plastic Detected");
@@ -187,8 +187,10 @@ void loop()
       lcd.print("Points:    " + ConvertNumberSpace(String(accumulatedPoints)));
 
       //
-      RequestSetPointsOn();
-      scale1.tare();
+      loadcellReading1 = scale1.get_units();
+      float result = loadcellReading1;
+      int resultRound = result;
+      accumulatedPoints = accumulatedPoints + resultRound;
 
       //
       myservo2.write(180);
@@ -197,14 +199,9 @@ void loop()
       delay(1000);
 
       //
-      loadcellReading1 = scale1.get_units();
-      float result = loadcellReading1;
-      int resultRound = result;
-      accumulatedPoints = accumulatedPoints + resultRound;
-
-      //
       RequestSetPointsOff();
       displayMode = 0;
+      return;
     }
 
     // Candy
@@ -409,6 +406,7 @@ void RequestSetCode()
 // Set In-use by Reward
 void RequestSetRewardOn() 
 {
+  /*
   if (wifiConnected == 0)
   {
     return;
@@ -427,11 +425,13 @@ void RequestSetRewardOn()
   http.end();
 
   delay(500);
+  */
 }
 
 // Set In-use by Points
 void RequestSetPointsOn() 
 {
+  /*
   if (wifiConnected == 0)
   {
     return;
@@ -450,11 +450,13 @@ void RequestSetPointsOn()
   http.end();
 
   delay(500);
+  */
 }
 
 // Set In-use by Reward Off
 void RequestSetRewardOff() 
 {
+  /*
   if (wifiConnected == 0)
   {
     return;
@@ -473,11 +475,13 @@ void RequestSetRewardOff()
   http.end();
 
   delay(500);
+  */
 }
 
 // Set In-use by Points Off
 void RequestSetPointsOff() 
 {
+  /*
   if (wifiConnected == 0)
   {
     return;
@@ -496,6 +500,7 @@ void RequestSetPointsOff()
   http.end();
 
   delay(500);
+  */
 }
 
 String ConvertNumberSpace(String x) 
