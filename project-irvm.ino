@@ -211,6 +211,7 @@ void loop()
     {
       if (dReward.toInt() < 200)
       {
+        displayMode = 0;
         return;
       }
       
