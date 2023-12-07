@@ -238,6 +238,7 @@ void loop()
 
       //
       RequestSetRewardOff();
+      RequestSetReward();
       displayMode = 0;
       return;
     }
@@ -265,6 +266,7 @@ void loop()
     if (!VCandy && displayMode == 0)
     {
       RequestGetRewardStatus();
+      RequestSetReward();
       displayMode = 3;
     }
 
@@ -277,6 +279,11 @@ void loop()
     // Code
     if (!VCode && displayMode == 0)
     {
+      if (dReward.toInt() <= 0)
+      {
+        return;
+      }
+
       RequestSetCode();
       RequestSetPointsOn();
       RequestGetCodeStatus();
@@ -383,7 +390,30 @@ void RequestGetRewardStatus()
   delay(500);
 }
 
-// Get Reward Status
+// Set Reward
+void RequestSetReward()
+{
+  if (wifiConnected == 0)
+  {
+    return;
+  }
+  
+  HTTPClient http;
+  String serverPath = serverName + "api.php?mode=devrewardset&cpoints=" + dReward;
+  http.begin(serverPath.c_str());
+  int httpResponseCode = http.GET();
+
+  if (httpResponseCode > 0) {
+    String payload = http.getString();
+    Serial.println(payload);
+  }
+
+  http.end();
+
+  delay(500);
+}
+
+// Set Code
 void RequestSetCode()
 {
   if (wifiConnected == 0)
