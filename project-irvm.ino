@@ -328,9 +328,16 @@ void ConnectWifi()
   // init wifi
   WiFi.begin(ssid, password);
   Serial.println("Connecting");
+  int ctr = 0;
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    ctr = ctr + 1;
+
+    if (ctr >= 5)
+    {
+      return;
+    }
   }
   Serial.println("");
   Serial.print("Connected to WiFi network with IP Address: ");
