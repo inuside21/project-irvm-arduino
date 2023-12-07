@@ -390,7 +390,9 @@ void RequestGetRewardStatus()
   if (httpResponseCode > 0) {
     String payload = http.getString();
     Serial.println(payload);
-    dReward = payload;
+    String dRewardTemp = payload;
+    int x = dRewardTemp.toInt() + dReward.toInt();
+    dReward = String(x);
   }
 
   http.end();
