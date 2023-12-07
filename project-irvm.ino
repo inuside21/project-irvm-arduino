@@ -209,34 +209,32 @@ void loop()
     // Candy
     if (displayMode == 3)
     {
-      //
-      while(dReward.toInt() > 0)
+      if (dReward.toInt() < 200)
       {
-        if (dReward.toInt() < 200)
-        {
-          break;  
-        }
-        
-        //
-        RequestSetRewardOn();
-        
-        //
-        lcd.setCursor(0, 0);
-        lcd.print("  Reward Claim  ");
-        lcd.setCursor(0, 1);
-        lcd.print("Points:    " + ConvertNumberSpace(dReward));
-
-        // 
-        int x = dReward.toInt();
-        x = x - 200;
-        dReward = String(x);
-
-        //
-        myservo3.write(180);
-        delay(1000);
-        myservo3.write(0);
-        delay(1000);
+        return;
       }
+      
+      //
+      RequestSetRewardOn();
+      
+      //
+      lcd.setCursor(0, 0);
+      lcd.print("  Reward Claim  ");
+      lcd.setCursor(0, 1);
+      lcd.print("Points:    " + ConvertNumberSpace(dReward));
+
+      // 
+      Serial.println("bago mag minus 200: " + dReward);
+      int x = dReward.toInt();
+      x = x - 200;
+      dReward = String(x);
+      Serial.println("nag minus 200: " + dReward);
+
+      //
+      myservo3.write(180);
+      delay(1000);
+      myservo3.write(0);
+      delay(1000);
 
       //
       RequestSetRewardOff();
