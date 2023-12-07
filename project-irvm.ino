@@ -128,6 +128,9 @@ void loop()
     
   }
 
+  // Server
+  RequestGetRewardStatus();
+
   // Display
   {
     // 0 - idle
@@ -266,7 +269,6 @@ void loop()
     // Claim
     if (!VCandy && displayMode == 0)
     {
-      RequestGetRewardStatus();
       RequestSetReward();
       displayMode = 3;
     }
@@ -403,6 +405,7 @@ void RequestGetRewardStatus()
 // Set Reward
 void RequestSetReward()
 {
+  /*
   if (wifiConnected == 0)
   {
     return;
@@ -421,6 +424,7 @@ void RequestSetReward()
   http.end();
 
   delay(500);
+  */
 }
 
 // Set Code
