@@ -59,6 +59,9 @@ int displayMode = 0;                  // 0 - idle
 String dCode = "";                    // server - code
 String dReward = "0";                 // server - reward
 
+// Debounce
+unsigned int debServerReq = 0;
+
 
 // =====================================
 // START
@@ -128,8 +131,7 @@ void loop()
     
   }
 
-  // Server
-  RequestGetRewardStatus();
+  
 
   // Display
   {
@@ -142,6 +144,13 @@ void loop()
     // Idle
     if (displayMode == 0)
     {
+      // Server
+      if ((millis() - debServerReq) > 5000)
+      {
+        debServerReq = millis();
+        RequestGetRewardStatus();
+      }
+
       //
       lcd.setCursor(0, 0);
       lcd.print("   No  Object   ");
