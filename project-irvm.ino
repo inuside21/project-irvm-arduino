@@ -107,9 +107,6 @@ void setup()
   delay(1000);
   myservo3.write(0);
   delay(1000);
-
-  //
-  ConnectWifi();
 }
 
 
@@ -128,10 +125,14 @@ void loop()
   // Wifi
   if (wifiConnected == 0)
   {
-    
+    //
+    lcd.setCursor(0, 0);
+    lcd.print("    NO  WIFI    ");
+    lcd.setCursor(0, 1);
+    lcd.print("  RECONNECTING  ");
+    ConnectWifi();
+    return;
   }
-
-  
 
   // Display
   {
@@ -148,6 +149,7 @@ void loop()
       if ((millis() - debServerReq) > 5000)
       {
         debServerReq = millis();
+        ConnectWifi();
         RequestGetRewardStatus();
       }
 
@@ -268,6 +270,8 @@ void loop()
       //
       delay(10000);
       RequestSetPointsOff();
+      dCode = "";
+      dReward = "0";
       displayMode = 0;
       return;
     }
@@ -299,7 +303,6 @@ void loop()
       RequestSetCode();
       RequestSetPointsOn();
       RequestGetCodeStatus();
-      dReward = "0";
 
       if (dCode != "" && dCode.length() == 8)
       {
@@ -348,7 +351,7 @@ void ConnectWifi()
 
     if (ctr >= 5)
     {
-      return;
+      //return;
     }
   }
   Serial.println("");
@@ -366,6 +369,11 @@ void RequestGetCodeStatus()
 {
   if (wifiConnected == 0)
   {
+    //
+    lcd.setCursor(0, 0);
+    lcd.print("    NO  WIFI    ");
+    lcd.setCursor(0, 1);
+    lcd.print("  RECONNECTING  ");
     return;
   }
   
@@ -390,6 +398,11 @@ void RequestGetRewardStatus()
 {
   if (wifiConnected == 0)
   {
+    //
+    lcd.setCursor(0, 0);
+    lcd.print("    NO  WIFI    ");
+    lcd.setCursor(0, 1);
+    lcd.print("  RECONNECTING  ");
     return;
   }
   
@@ -414,9 +427,13 @@ void RequestGetRewardStatus()
 // Set Reward
 void RequestSetReward()
 {
-  /*
   if (wifiConnected == 0)
   {
+    //
+    lcd.setCursor(0, 0);
+    lcd.print("    NO  WIFI    ");
+    lcd.setCursor(0, 1);
+    lcd.print("  RECONNECTING  ");
     return;
   }
   
@@ -433,7 +450,6 @@ void RequestSetReward()
   http.end();
 
   delay(500);
-  */
 }
 
 // Set Code
@@ -441,6 +457,11 @@ void RequestSetCode()
 {
   if (wifiConnected == 0)
   {
+    //
+    lcd.setCursor(0, 0);
+    lcd.print("    NO  WIFI    ");
+    lcd.setCursor(0, 1);
+    lcd.print("  RECONNECTING  ");
     return;
   }
   
