@@ -36,7 +36,7 @@ int objectsensor = 35;
 // Pin Input - Button
 int btnCandy = 32;
 int btnOpen = 33;
-int btnCode = 19;
+int btnCode = 25;
 
 // Pin Output - Servo
 int servoPin1 = 4;                    // Metal
@@ -131,6 +131,7 @@ void loop()
     lcd.setCursor(0, 1);
     lcd.print("  RECONNECTING  ");
     ConnectWifi();
+    Serial.print("tae");
     return;
   }
 
@@ -253,13 +254,12 @@ void loop()
 
       //
       RequestSetRewardOff();
-      RequestSetReward();
       displayMode = 0;
       return;
     }
 
     // Code
-    if (displayMode == 8)
+    if (displayMode == 😎
     {
       //
       lcd.setCursor(0, 0);
@@ -304,7 +304,7 @@ void loop()
       RequestSetPointsOn();
       RequestGetCodeStatus();
 
-      if (dCode != "" && dCode.length() == 8)
+      if (dCode != "" && dCode.length() == 😎
       {
         displayMode = 8;
       }
@@ -334,33 +334,39 @@ void loop()
 // Connect
 void ConnectWifi()
 {
-  lcd.setCursor(0, 0);
-  lcd.print("   CONNECTING   ");
-  lcd.setCursor(0, 1);
-  lcd.print("      WIFI      ");
-
-  Serial.println("init wifi");
-  // init wifi
-  WiFi.begin(ssid, password);
-  Serial.println("Connecting");
-  int ctr = 0;
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-    ctr = ctr + 1;
-
-    if (ctr >= 5)
-    {
-      //return;
-    }
-  }
-  Serial.println("");
-  Serial.print("Connected to WiFi network with IP Address: ");
-  Serial.println(WiFi.localIP());
-
-  if (WiFi.status() == WL_CONNECTED)
+  if (WiFi.status() != WL_CONNECTED)
   {
+    lcd.setCursor(0, 0);
+    lcd.print("   CONNECTING   ");
+    lcd.setCursor(0, 1);
+    lcd.print("      WIFI      ");
+
+    Serial.println("init wifi");
+    // init wifi
+    WiFi.begin(ssid, password);
+    Serial.println("Connecting");
+    int ctr = 0;
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
+      ctr = ctr + 1;
+
+      if (ctr >= 5)
+      {
+        //return;
+      }
+    }
+    Serial.println("");
+    Serial.print("Connected to WiFi network with IP Address: ");
+    Serial.println(WiFi.localIP());
+
+  
     wifiConnected = 1;
+  }
+
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    wifiConnected = 0;
   }
 }
 
@@ -427,6 +433,7 @@ void RequestGetRewardStatus()
 // Set Reward
 void RequestSetReward()
 {
+  /*
   if (wifiConnected == 0)
   {
     //
@@ -450,6 +457,7 @@ void RequestSetReward()
   http.end();
 
   delay(500);
+  */
 }
 
 // Set Code
