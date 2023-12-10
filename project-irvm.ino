@@ -22,7 +22,7 @@ Servo myservo3;
 // Load Cell
 #include "HX711.h"
 HX711 scale1;                         // Metal
-float loadcellCalibration1 = 975;     // Metal
+float loadcellCalibration1 = 525;     // Metal
 float loadcellReading1 = 0;           // Metal
 
 // Pin Input - Loadcell
@@ -101,7 +101,7 @@ void setup()
   lcd.print("     IVENDO     ");
 
   //
-  myservo1.write(0);
+  myservo1.write(180);
   delay(1000);
   myservo2.write(0);
   delay(1000);
@@ -154,11 +154,22 @@ void loop()
         RequestGetRewardStatus();
       }
 
-      //
-      lcd.setCursor(0, 0);
-      lcd.print("   No  Object   ");
-      lcd.setCursor(0, 1);
-      lcd.print("Points:    " + ConvertNumberSpace(dReward));
+      if (!Vobjectsensor && VOpen)
+      {
+        //
+        lcd.setCursor(0, 0);
+        lcd.print("Object  Detected");
+        lcd.setCursor(0, 1);
+        lcd.print("   Press Open   ");
+      }
+      else
+      {
+        //
+        lcd.setCursor(0, 0);
+        lcd.print("   No  Object   ");
+        lcd.setCursor(0, 1);
+        lcd.print("Points:    " + ConvertNumberSpace(dReward));
+      }
     }
 
     // Metal
@@ -176,13 +187,27 @@ void loop()
       //
       loadcellReading1 = scale1.get_units();
       int x = dReward.toInt();
+
+      //
+      if (loadcellReading1 > 200)
+      {
+        //
+        lcd.setCursor(0, 0);
+        lcd.print("  200G   Limit  ");
+        lcd.setCursor(0, 1);
+        lcd.print("   Try  Again   ");
+        delay(5000);
+        displayMode = 0;
+        return;
+      }
+      
       int y = loadcellReading1 + x;
       dReward = String(y);
 
       //
-      myservo1.write(180);
-      delay(5000);
       myservo1.write(0);
+      delay(5000);
+      myservo1.write(180);
       delay(1000);
 
       //
@@ -206,6 +231,20 @@ void loop()
       //
       loadcellReading1 = scale1.get_units();
       int x = dReward.toInt();
+
+      //
+      if (loadcellReading1 > 200)
+      {
+        //
+        lcd.setCursor(0, 0);
+        lcd.print("  200G   Limit  ");
+        lcd.setCursor(0, 1);
+        lcd.print("   Try  Again   ");
+        delay(5000);
+        displayMode = 0;
+        return;
+      }
+      
       int y = loadcellReading1 + x;
       dReward = String(y);
 
@@ -240,11 +279,9 @@ void loop()
       lcd.print("Points:    " + ConvertNumberSpace(dReward));
 
       // 
-      Serial.println("bago mag minus 200: " + dReward);
       int x = dReward.toInt();
       x = x - 200;
       dReward = String(x);
-      Serial.println("nag minus 200: " + dReward);
 
       //
       myservo3.write(180);
@@ -259,7 +296,7 @@ void loop()
     }
 
     // Code
-    if (displayMode == 😎
+    if (displayMode == 8)
     {
       //
       lcd.setCursor(0, 0);
@@ -304,7 +341,7 @@ void loop()
       RequestSetPointsOn();
       RequestGetCodeStatus();
 
-      if (dCode != "" && dCode.length() == 😎
+      if (dCode != "" && dCode.length() == 8)
       {
         displayMode = 8;
       }
@@ -359,8 +396,6 @@ void ConnectWifi()
     Serial.println("");
     Serial.print("Connected to WiFi network with IP Address: ");
     Serial.println(WiFi.localIP());
-
-  
     wifiConnected = 1;
   }
 
